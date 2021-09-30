@@ -20,8 +20,6 @@ export const AppContextProvider: FC = ({ children }) => {
 		ProductsInitialState
 	)
 
-	console.log(productsState)
-
 	return (
 		<Context.Provider
 			value={{
