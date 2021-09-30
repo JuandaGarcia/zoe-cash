@@ -1,0 +1,8 @@
+.product_item {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: calc(var(--app-padding) / 2);
+	align-items: center;
+	color: var(--text-color);
+	margin-bottom: calc(var(--app-padding) / 2);
+}

@@ -1,0 +1,20 @@
+@import '../media_querys';
+
+.home {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--app-padding);
+	min-height: 100vh;
+	max-width: 700px;
+	padding: var(--app-padding);
+	margin: 0 auto;
+	@include media {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: min-content min-content;
+	}
+	&__title {
+		color: var(--accent-color);
+		grid-column: span 2;
+		text-align: center;
+	}
+}

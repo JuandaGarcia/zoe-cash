@@ -1,0 +1,29 @@
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	/* Colors */
+	--geist-background: #fff;
+	--accent-color: #444251;
+	--text-color: #585858;
+	--gray-scale-color: #f0f0f0;
+	--geist-foreground: #000;
+	/* Spacing */
+	--app-padding: 2rem;
+	/* Brand */
+	--primary-color: #4b4ded;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
