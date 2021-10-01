@@ -66,21 +66,23 @@ $radius: 10px;
 		background: var(--gray-scale-color);
 		border-radius: 1rem;
 	}
-	&__buttons {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 1rem;
-		&__button {
-			outline: none;
-			border: none;
-			background-color: var(--primary-color);
-			border-radius: 5px;
-			color: var(--geist-background);
-			margin: 0 0.5rem;
-			padding: 0.5rem;
-		}
+}
+
+.buttons {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 1rem;
+	&__button {
+		outline: none;
+		border: none;
+		background-color: var(--primary-color);
+		border-radius: 5px;
+		color: var(--geist-background);
+		margin: 0 0.5rem;
+		padding: 0.5rem;
+		cursor: pointer;
 	}
 }
 

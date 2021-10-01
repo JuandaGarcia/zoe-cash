@@ -2,7 +2,13 @@ import ProductItem from 'components/ProductItem/ProductItem'
 import useInput from 'hooks/useInput'
 import useProducts from 'hooks/useProducts'
 import Search from 'lib/icons/Search'
-import React, { forwardRef, InputHTMLAttributes, useState } from 'react'
+import React, {
+	forwardRef,
+	InputHTMLAttributes,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 import s from './Input.module.scss'
 
 type TInput = InputHTMLAttributes<HTMLInputElement>
@@ -16,14 +22,38 @@ const Input = forwardRef<HTMLInputElement, Props>(
 	({ label, type, ...props }, ref) => {
 		const { products, clear } = useProducts()
 		const [openMenu, setOpenMenu] = useState(false)
+		const [isOutputElement, setIsOutputElement] = useState(false)
+
+		const inputRef = useRef<HTMLDivElement>(null)
 
 		const currentArray =
 			type === 'all' ? products : products.filter(product => product.selected)
 
 		const { value, handleChange, searchResult } = useInput(currentArray)
 
+		useEffect(() => {
+			const closeMenu = (e: MouseEvent) => {
+				const isChild = inputRef.current?.contains(e.target as Node)
+
+				if (e.target !== inputRef.current && !isChild && !isOutputElement) {
+					setOpenMenu(false)
+				}
+				setIsOutputElement(false)
+			}
+
+			document.addEventListener('click', closeMenu)
+
+			return () => {
+				document.removeEventListener('click', closeMenu)
+			}
+		}, [isOutputElement])
+
 		return (
-			<div onClick={() => setOpenMenu(true)} className={s.main_container}>
+			<div
+				ref={inputRef}
+				onClick={() => setOpenMenu(true)}
+				className={s.main_container}
+			>
 				<label>
 					<span className={s.label__text}>{label}</span>
 					<div className={s.container}>
@@ -40,12 +70,12 @@ const Input = forwardRef<HTMLInputElement, Props>(
 					</div>
 				</label>
 				{type === 'selected' && (
-					<div className={s.list__buttons}>
-						<button className={s.list__buttons__button} onClick={clear}>
+					<div className={s.buttons}>
+						<button className={s.buttons__button} onClick={clear}>
 							Limpiar
 						</button>
 						<button
-							className={s.list__buttons__button}
+							className={s.buttons__button}
 							onClick={() => {
 								alert(
 									currentArray.length
@@ -66,7 +96,13 @@ const Input = forwardRef<HTMLInputElement, Props>(
 								<p>Resultados para: {value}</p>
 								{searchResult.length ? (
 									searchResult.map(product => (
-										<ProductItem key={product.id} product={product} />
+										<ProductItem
+											onClick={() =>
+												type === 'selected' && setIsOutputElement(true)
+											}
+											key={product.id}
+											product={product}
+										/>
 									))
 								) : (
 									<p>No se encontraron productos.</p>
@@ -74,7 +110,13 @@ const Input = forwardRef<HTMLInputElement, Props>(
 							</div>
 						) : (
 							currentArray.map(product => (
-								<ProductItem key={product.id} product={product} />
+								<ProductItem
+									onClick={() =>
+										type === 'selected' && setIsOutputElement(true)
+									}
+									key={product.id}
+									product={product}
+								/>
 							))
 						)}
 					</div>
